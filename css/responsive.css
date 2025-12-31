@@ -1,0 +1,292 @@
+/* ===================================
+   Responsive Design - Mobile First
+   =================================== */
+
+/* Tablet Styles (768px and below) */
+@media screen and (max-width: 768px) {
+    /* Typography adjustments */
+    html {
+        font-size: 14px;
+    }
+    
+    /* Navigation */
+    .nav__menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        background: var(--color-surface);
+        flex-direction: column;
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-md);
+        transition: left 0.3s ease;
+        align-items: flex-start;
+    }
+    
+    .nav__menu.active {
+        left: 0;
+    }
+    
+    .nav__toggle {
+        display: flex;
+    }
+    
+    .nav__toggle.active .nav__toggle-icon {
+        background: transparent;
+    }
+    
+    .nav__toggle.active .nav__toggle-icon::before {
+        transform: rotate(45deg);
+    }
+    
+    .nav__toggle.active .nav__toggle-icon::after {
+        transform: rotate(-45deg) translateY(-8px);
+    }
+    
+    .nav__item {
+        width: 100%;
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--spacing-sm) 0;
+    }
+    
+    .nav__link {
+        display: block;
+        width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+        height: 100vh;
+        padding: var(--spacing-md);
+    }
+    
+    .hero__title {
+        font-size: clamp(2rem, 6vw, 3rem);
+    }
+    
+    .hero__subtitle {
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+    }
+    
+    /* About Section */
+    .about__content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .about__interests-list {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Work Section */
+    .work__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .work__filters {
+        gap: var(--spacing-xs);
+    }
+    
+    .work__filter {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+    
+    /* Writing Section */
+    .writing__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Gallery Section */
+    .gallery__grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: var(--spacing-sm);
+    }
+    
+    /* Contact Section */
+    .contact__links {
+        gap: var(--spacing-sm);
+    }
+    
+    .contact__link {
+        min-width: 100px;
+        padding: var(--spacing-sm);
+    }
+    
+    /* Spacing adjustments */
+    .section {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+/* Mobile Styles (480px and below) */
+@media screen and (max-width: 480px) {
+    /* Typography */
+    html {
+        font-size: 13px;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Navigation */
+    .nav__container {
+        padding: var(--spacing-sm);
+    }
+    
+    .nav__logo {
+        font-size: 1.2rem;
+    }
+    
+    /* Hero */
+    .hero__scroll {
+        bottom: var(--spacing-md);
+    }
+    
+    /* Work Cards */
+    .work__card-content {
+        padding: var(--spacing-sm);
+    }
+    
+    /* Writing Cards */
+    .writing__card {
+        padding: var(--spacing-sm);
+    }
+    
+    .writing__card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    /* Gallery */
+    .gallery__grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Contact */
+    .contact__links {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .contact__link {
+        width: 100%;
+    }
+    
+    /* Lightbox */
+    .lightbox__image {
+        max-width: 95%;
+    }
+    
+    .lightbox__close {
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+        width: 40px;
+        height: 40px;
+        font-size: 2rem;
+    }
+}
+
+/* Large Desktop (1400px and above) */
+@media screen and (min-width: 1400px) {
+    :root {
+        --container-width: 1400px;
+    }
+    
+    .work__grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .writing__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .gallery__grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Landscape Mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+    
+    .hero__scroll {
+        display: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .nav,
+    .hero__scroll,
+    .theme-toggle,
+    .nav__toggle {
+        display: none;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --color-text: #000000;
+        --color-background: #ffffff;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav__link::after {
+        height: 3px;
+    }
+    
+    button,
+    a {
+        outline: 2px solid transparent;
+    }
+    
+    button:focus,
+    a:focus {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
+/* Made with Bob */
