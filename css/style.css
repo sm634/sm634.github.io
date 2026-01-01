@@ -438,7 +438,7 @@ p {
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
-    height: 100%;
+    height: calc(100% - var(--spacing-lg));
     background: linear-gradient(to bottom, var(--color-secondary), var(--color-tertiary));
     z-index: 0;
     pointer-events: none;
@@ -787,6 +787,15 @@ p {
    =================================== */
 .gallery {
     background: var(--color-surface);
+}
+
+.gallery__description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-text-light);
 }
 
 .gallery__grid {
