@@ -563,7 +563,6 @@ p {
 }
 
 .timeline__image {
-    margin-top: var(--spacing-sm);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -579,6 +578,14 @@ p {
 .timeline__item--right .timeline__image {
     margin-right: auto;
     margin-left: var(--spacing-md);
+}
+
+.timeline__image--above {
+    margin-bottom: var(--spacing-sm);
+}
+
+.timeline__image--below {
+    margin-top: var(--spacing-sm);
 }
 
 .timeline__image img {
