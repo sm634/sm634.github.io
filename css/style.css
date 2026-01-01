@@ -497,6 +497,14 @@ p {
     animation-delay: 1.5s;
 }
 
+.timeline__item[data-position="6"] {
+    animation-delay: 1.8s;
+}
+
+.timeline__item[data-position="7"] {
+    animation-delay: 2.1s;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -552,6 +560,41 @@ p {
     line-height: 1.6;
     color: var(--color-text);
     margin: 0;
+}
+
+.timeline__image {
+    margin-top: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    max-width: 250px;
+    transition: var(--transition);
+}
+
+.timeline__item--left .timeline__image {
+    margin-left: auto;
+    margin-right: var(--spacing-md);
+}
+
+.timeline__item--right .timeline__image {
+    margin-right: auto;
+    margin-left: var(--spacing-md);
+}
+
+.timeline__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.timeline__image:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+}
+
+.timeline__image:hover img {
+    transform: scale(1.05);
 }
 
 /* ===================================
