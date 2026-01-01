@@ -100,6 +100,14 @@
         padding: var(--spacing-sm);
     }
     
+    .timeline__text-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .timeline__image {
+        max-width: 250px;
+    }
+    
     .timeline__marker {
         left: 50%;
         transform: translate(-50%, -50%);
@@ -205,12 +213,21 @@
     }
     
     .timeline__content {
+        padding: var(--spacing-xs);
+        gap: var(--spacing-sm);
+    }
+    
+    .timeline__text-box {
         padding: var(--spacing-xs) var(--spacing-sm);
     }
     
     .timeline__text {
         font-size: 0.9rem;
         line-height: 1.6;
+    }
+    
+    .timeline__image {
+        max-width: 200px;
     }
     
     .timeline__marker {

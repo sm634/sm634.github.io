@@ -518,11 +518,28 @@ p {
 
 .timeline__content {
     position: relative;
-    display: inline-block;
-    background: transparent;
-    padding: var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
     max-width: 600px;
+    margin: 0 auto;
     transition: var(--transition);
+}
+
+.timeline__text-box {
+    background: var(--color-surface);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--color-border);
+    width: 100%;
+    transition: var(--transition);
+}
+
+.timeline__text-box:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .timeline__marker {
@@ -545,6 +562,15 @@ p {
     color: var(--color-text);
     margin: 0;
     text-align: center;
+}
+
+.timeline__image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    object-fit: cover;
 }
 
 /* ===================================
