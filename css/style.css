@@ -438,7 +438,7 @@ p {
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
-    height: calc(100% - var(--spacing-lg));
+    height: 100%;
     background: linear-gradient(to bottom, var(--color-secondary), var(--color-tertiary));
     z-index: 0;
     pointer-events: none;
@@ -469,6 +469,10 @@ p {
     text-align: center;
     display: flex;
     justify-content: center;
+}
+
+.timeline__item--last {
+    margin-bottom: 0;
 }
 
 .timeline__content-wrapper {
