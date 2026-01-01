@@ -74,8 +74,36 @@
         gap: var(--spacing-md);
     }
     
+    .about__images {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
     .about__interests-list {
         grid-template-columns: 1fr;
+    }
+    
+    /* Timeline */
+    .timeline__item--left,
+    .timeline__item--right {
+        text-align: left;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    
+    .timeline__item--left .timeline__marker,
+    .timeline__item--right .timeline__marker {
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+    
+    .timeline__content {
+        max-width: 100%;
+    }
+    
+    .timeline__svg {
+        display: none;
     }
     
     /* Work Section */
@@ -155,6 +183,26 @@
     /* Work Cards */
     .work__card-content {
         padding: var(--spacing-sm);
+    }
+    
+    /* About Images */
+    .about__images {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Timeline */
+    .timeline__item--left,
+    .timeline__item--right {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    
+    .timeline__content {
+        padding: var(--spacing-sm);
+    }
+    
+    .timeline__text {
+        font-size: 0.9rem;
     }
     
     /* Writing Cards */
