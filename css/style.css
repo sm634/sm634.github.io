@@ -703,11 +703,31 @@ p {
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
     border-top: 4px solid var(--color-tertiary);
+    display: flex;
+    flex-direction: column;
 }
 
 .writing__card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
+}
+
+.writing__card-image {
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.writing__card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.writing__card:hover .writing__card-image img {
+    transform: scale(1.05);
 }
 
 .writing__card-header {
