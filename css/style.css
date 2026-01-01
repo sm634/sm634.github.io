@@ -505,6 +505,10 @@ p {
     animation-delay: 2.1s;
 }
 
+.timeline__item[data-position="8"] {
+    animation-delay: 2.1s;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
