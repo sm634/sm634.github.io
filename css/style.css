@@ -351,6 +351,11 @@ p {
     margin-bottom: var(--spacing-xl);
 }
 
+.about__purpose {
+    text-align: center;
+    font-weight: 600;
+}
+
 .about__images {
     display: flex;
     flex-direction: column;
