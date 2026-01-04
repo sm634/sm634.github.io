@@ -403,6 +403,69 @@
     }
 }
 
+/* Desktop Styles for Poems (769px and above) */
+@media screen and (min-width: 769px) {
+    /* Poem Cards on Main Page */
+    .poems__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .poem__card {
+        min-height: 320px;
+    }
+    
+    .poem__card-content {
+        padding: var(--spacing-lg);
+    }
+    
+    /* Individual Poem Pages */
+    .poem-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: calc(var(--spacing-xl) + 80px) var(--spacing-xl) var(--spacing-xl);
+    }
+    
+    .poem-content {
+        padding: var(--spacing-xl) calc(var(--spacing-xl) * 1.5);
+        margin: 0 auto;
+    }
+    
+    .poem-text {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .poem-header {
+        margin-bottom: calc(var(--spacing-xl) * 1.5);
+    }
+    
+    .poem-footer {
+        margin-top: calc(var(--spacing-xl) * 1.5);
+    }
+}
+
+/* Large Desktop Styles for Poems (1200px and above) */
+@media screen and (min-width: 1200px) {
+    .poem-container {
+        max-width: 1000px;
+        padding: calc(var(--spacing-xl) + 100px) var(--spacing-xl) var(--spacing-xl);
+    }
+    
+    .poem-content {
+        padding: calc(var(--spacing-xl) * 1.5) calc(var(--spacing-xl) * 2);
+    }
+    
+    .poem-text {
+        max-width: 750px;
+        font-size: 1.5rem;
+        line-height: 2.2;
+    }
+}
+
 /* Made with Bob */
 
 /* Tablet Styles for Poems */

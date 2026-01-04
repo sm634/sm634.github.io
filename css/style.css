@@ -965,7 +965,6 @@ p {
     min-height: 100vh;
     background: linear-gradient(135deg, #2c1810 0%, #1a1a2e 50%, #0f3460 100%);
     position: relative;
-    overflow: hidden;
 }
 
 .poem-page::before {
