@@ -1,4 +1,4 @@
-# Safal's Portfolio Website
+# Safal's Website
 
 A modern, artistic personal portfolio website showcasing work in technology, consciousness, and beauty.
 
@@ -208,8 +208,9 @@ This project is open source and available under the [MIT License](LICENSE).
 For questions or feedback:
 
 - Open an issue on GitHub
-- Email: [your.email@example.com](mailto:your.email@example.com)
+- Email: mukhiasafal740@gmail.com
 
 ---
 
 **Built with ❤️ exploring technology, consciousness, and beauty**
+
