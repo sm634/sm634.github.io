@@ -861,6 +861,12 @@ p {
     border-top: 2px solid var(--color-border);
 }
 
+.gallery__description + .poems-subsection {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
 .poems-subsection__title {
     text-align: center;
     color: var(--color-primary);
