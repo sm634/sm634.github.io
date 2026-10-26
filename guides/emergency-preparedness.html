@@ -115,6 +115,7 @@
             font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
             margin: 2rem 0 0.9rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--border);
         }
+        .section h3 small::before { content: '| '; }
         .section h3 small { font-weight: 400; color: var(--muted); letter-spacing: 0.02em; text-transform: none; font-size: 0.9rem; }
         .section p { margin-bottom: 0.9rem; }
         .lead { font-size: 1.05rem; color: var(--muted); }
@@ -265,39 +266,132 @@
         footer { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 0.9rem; }
         footer a { color: var(--accent); }
 
+        /* Mobile navigation (hidden on desktop) */
+        .secbar, .incontents, .totop, .topbar__back-short { display: none; }
+        .secbar { border-top: 1px solid rgba(248, 249, 250, 0.12); }
+        .secbar__btn {
+            width: 100%; display: flex; align-items: center; gap: 0.75rem;
+            background: none; border: 0; color: #f8f9fa; font: inherit; text-align: left; cursor: pointer;
+            padding: 0.55rem 1rem;
+        }
+        .secbar__icon { font-size: 1.2rem; color: var(--amber); }
+        .secbar__label { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+        .secbar__label small { font-size: 0.68rem; letter-spacing: 0.12em; color: #b2bec3; font-weight: 700; }
+        .secbar__current { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .secbar__chev {
+            font-size: 0.8rem; font-weight: 600; color: var(--navy); background: var(--amber);
+            border-radius: 20px; padding: 0.25rem 0.7rem;
+        }
+
+        .sheet { position: fixed; inset: 0; z-index: 200; visibility: hidden; }
+        .sheet.open { visibility: visible; }
+        .sheet__backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.55); opacity: 0; transition: opacity 0.25s ease; }
+        .sheet.open .sheet__backdrop { opacity: 1; }
+        .sheet__panel {
+            position: absolute; left: 0; right: 0; bottom: 0; max-height: 85vh; overflow-y: auto;
+            background: var(--surface); color: var(--text); border-radius: 18px 18px 0 0;
+            padding: 0.5rem 1rem calc(1rem + env(safe-area-inset-bottom));
+            transform: translateY(100%); transition: transform 0.25s ease;
+        }
+        .sheet.open .sheet__panel { transform: none; }
+        .sheet__head {
+            display: flex; align-items: center; justify-content: space-between;
+            position: sticky; top: -0.5rem; background: var(--surface); padding: 0.8rem 0 0.6rem;
+        }
+        .sheet__head h2 { font-size: 1.15rem; }
+        .sheet__close {
+            font: inherit; font-size: 1.4rem; line-height: 1; width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid var(--border); background: var(--surface-2); color: var(--text); cursor: pointer;
+        }
+
+        /* Large tappable contents rows, used in the sheet and at the top of the guide */
+        .navlist { list-style: none; display: grid; gap: 0.45rem; }
+        .navlist a {
+            display: grid; grid-template-columns: 2.4rem 1fr auto; align-items: center; gap: 0.7rem;
+            min-height: 52px; padding: 0.6rem 0.85rem; border-radius: 10px; text-decoration: none;
+            background: var(--surface-2); color: var(--text); border: 1px solid var(--border);
+        }
+        .navlist a::after { content: '›'; font-size: 1.4rem; color: var(--muted); }
+        .navlist__num {
+            font-family: var(--font-heading); font-weight: 700; color: var(--accent); font-size: 0.95rem;
+        }
+        .navlist__text { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+        .navlist__text small { display: block; font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+        .navlist a.active { border-color: var(--accent); background: var(--danger-bg); }
+
+        .totop {
+            position: fixed; right: 1rem; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 90;
+            width: 48px; height: 48px; border-radius: 50%; place-items: center;
+            background: var(--accent); color: #fff; font-size: 1.3rem; text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+            opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+        }
+        .totop.show { opacity: 1; pointer-events: auto; }
+
         /* Responsive */
         @media (max-width: 900px) {
-            .layout { grid-template-columns: 1fr; gap: 1rem; padding-top: 1rem; }
-            .toc {
-                top: 56px; z-index: 50; background: var(--bg); margin: 0 -1rem; padding: 0.5rem 1rem;
-                border-bottom: 1px solid var(--border);
-            }
-            .toc__title { display: none; }
-            .toc ol { display: flex; gap: 0.4rem; overflow-x: auto; scrollbar-width: none; }
-            .toc ol::-webkit-scrollbar { display: none; }
-            .toc a { white-space: nowrap; border-left: none; border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; padding: 0.3rem 0.8rem; }
-            .toc a.active { border-color: var(--accent); }
             html { scroll-padding-top: 120px; }
+            .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 1rem 0.75rem 5rem; }
+            .toc { display: none; }
+            .secbar { display: block; }
+            .incontents { display: block; margin-top: 1.5rem; }
+            .totop { display: grid; }
             .steps { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
         }
         @media (max-width: 640px) {
-            .section { padding: 1.3rem 1rem; }
-            .ladder__row { grid-template-columns: 48px 1fr; }
-            .ladder__desc { grid-column: 1 / -1; }
-            .layer { grid-template-columns: 40px 1fr; }
-            .layer__letter { width: 40px; height: 40px; }
-            .layer .pill { grid-column: 2; justify-self: start; }
-            .modes { grid-template-columns: 1fr; }
-            .row { grid-template-columns: 1fr; gap: 0.2rem; }
-            .targets { grid-template-columns: repeat(2, 1fr); }
-            .calc { grid-template-columns: 1fr 1fr 1fr; }
-            .calc__out { grid-column: 1 / -1; }
+            body { font-size: 15.5px; }
+            .section { padding: 1.4rem 1rem; margin-bottom: 1rem; overflow-wrap: anywhere; }
+            .section > h2 { font-size: 1.45rem; }
+            .section h3 { margin-top: 1.6rem; font-size: 0.88rem; }
+            .section h3 small { display: block; margin-top: 0.15rem; }
+            .section h3 small::before { content: none; }
+            .lead { font-size: 1rem; }
+
+            .topbar__inner { padding: 0.6rem 1rem; }
             .topbar__back-text { display: none; }
+            .topbar__back-short { display: inline; }
+            .btn { padding: 0.3rem 0.75rem; }
+
+            .hero { padding: 2rem 1rem 1.8rem; }
+            .hero__micro { font-size: 0.7rem; }
+            .hero__tagline { font-size: 1rem; }
+
+            .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+            .tiles--list { grid-template-columns: minmax(0, 1fr); }
+            .tile { padding: 0.8rem; }
+            .tile__title { font-size: 0.95rem; }
+            .tile__body { font-size: 0.85rem; }
+
+            .ladder__row { grid-template-columns: 44px minmax(0, 1fr); gap: 0.3rem 0.8rem; padding: 0.7rem 0.8rem; }
+            .ladder__desc { grid-column: 1 / -1; }
+
+            .layer { grid-template-columns: 40px minmax(0, 1fr); gap: 0.4rem 0.8rem; padding: 0.8rem; align-items: start; }
+            .layer__letter { width: 40px; height: 40px; font-size: 1rem; }
+            .layer .pill { grid-column: 2; justify-self: start; }
+
+            .steps { grid-template-columns: minmax(0, 1fr); gap: 0.4rem; }
+            .step { display: grid; grid-template-columns: 30px auto 1fr; gap: 0.7rem; align-items: center; text-align: left; padding: 0.6rem 0.8rem; }
+            .step__n { margin: 0; }
+
+            .modes { grid-template-columns: minmax(0, 1fr); }
+            .row { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; }
+            .formula { font-size: 1.1rem; }
+            .calc { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .calc__out { grid-column: 1 / -1; }
+
+            .checklist label { padding: 0.55rem 0.3rem; }
+            .checklist input { width: 1.25rem; height: 1.25rem; margin-top: 0.15rem; }
+            .buy__label { width: 100%; }
+            .buy a { padding: 0.5rem 0.85rem; }
+
+            .targets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .links { grid-template-columns: minmax(0, 1fr); }
+            .callout { padding: 0.9rem 1rem; }
         }
 
         /* Print */
         @media print {
-            .topbar, .toc, .progress, .calc-wrap, footer .no-print { display: none !important; }
+            .topbar, .toc, .incontents, .sheet, .totop, .progress, .calc-wrap, footer .no-print { display: none !important; }
             body { background: #fff; color: #000; }
             .layout { display: block; padding: 0; }
             .hero { background: none; color: #000; padding: 1rem 0; }
@@ -313,15 +407,35 @@
 <body>
     <header class="topbar">
         <div class="topbar__inner">
-            <a href="../index.html#odds-and-ends">← <span class="topbar__back-text">Back to Odds &amp; Ends</span></a>
+            <a href="../index.html#odds-and-ends">← <span class="topbar__back-text">Back to Odds &amp; Ends</span><span class="topbar__back-short">Back</span></a>
             <div class="topbar__actions">
                 <button class="btn" id="print-btn" type="button">🖨 Print</button>
                 <button class="btn" id="theme-btn" type="button" aria-label="Toggle dark mode">🌙</button>
             </div>
         </div>
+        <div class="secbar">
+            <button class="secbar__btn" id="secbar-btn" type="button" aria-expanded="false" aria-controls="sheet">
+                <span class="secbar__icon" aria-hidden="true">☰</span>
+                <span class="secbar__label"><small>CONTENTS</small><span class="secbar__current" id="secbar-current">01 · Framework overview</span></span>
+                <span class="secbar__chev">Sections</span>
+            </button>
+        </div>
     </header>
 
-    <div class="hero">
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Guide contents">
+        <div class="sheet__backdrop" data-close></div>
+        <div class="sheet__panel">
+            <div class="sheet__head">
+                <h2>Contents</h2>
+                <button class="sheet__close" type="button" aria-label="Close contents" data-close>&times;</button>
+            </div>
+            <ol class="navlist" id="sheet-list"></ol>
+        </div>
+    </div>
+
+    <a href="#top" class="totop" id="totop" aria-label="Back to top">↑</a>
+
+    <div class="hero" id="top">
         <p class="hero__micro">EMERGENCY PREPAREDNESS FRAMEWORK &amp; GUIDE</p>
         <h1>A simple emergency plan for London</h1>
         <p class="hero__tagline"><strong>Understand the risk.</strong> Buy the essentials. Know when to leave.</p>
@@ -331,14 +445,14 @@
         <nav class="toc" aria-label="Guide contents">
             <p class="toc__title">CONTENTS</p>
             <ol>
-                <li><a href="#intro"><span>01</span>Framework overview</a></li>
-                <li><a href="#severity"><span>02</span>Severity &amp; critical systems</a></li>
-                <li><a href="#durations"><span>03</span>Time periods &amp; stockpile layers</a></li>
-                <li><a href="#decide"><span>04</span>Response, risk &amp; property</a></li>
-                <li><a href="#shop1"><span>05</span>72h list · water, food, power</a></li>
-                <li><a href="#shop2"><span>06</span>72h list · medical, hygiene, shelter</a></li>
-                <li><a href="#extended"><span>07</span>Longer-term · 7, 14, 30 days</a></li>
-                <li><a href="#relocation"><span>08</span>Relocation &amp; official guidance</a></li>
+                <li><a href="#intro" data-sub="What this guide covers"><span>01</span>Framework overview</a></li>
+                <li><a href="#severity" data-sub="Six levels · nine systems"><span>02</span>Severity &amp; critical systems</a></li>
+                <li><a href="#durations" data-sub="72 hours to 30 days · Layers A–D"><span>03</span>Time periods &amp; stockpile layers</a></li>
+                <li><a href="#decide" data-sub="Stay or go · score your risk"><span>04</span>Response, risk &amp; property</a></li>
+                <li><a href="#shop1" data-sub="Shopping list · part 1"><span>05</span>72h list · water, food, power</a></li>
+                <li><a href="#shop2" data-sub="Shopping list · part 2"><span>06</span>72h list · medical, hygiene, shelter</a></li>
+                <li><a href="#extended" data-sub="Build next"><span>07</span>Longer-term · 7, 14, 30 days</a></li>
+                <li><a href="#relocation" data-sub="When to leave · official links"><span>08</span>Relocation &amp; official guidance</a></li>
             </ol>
         </nav>
 
@@ -348,6 +462,11 @@
                 <p class="micro">01 / Overview</p>
                 <h2>What this framework covers</h2>
                 <p>Emergencies range from brief local interruptions to prolonged disasters that affect several essential services. This guide helps you judge <strong>six severity levels</strong>, identify which of <strong>nine critical systems</strong> could fail, and plan for <strong>four time periods</strong>. Those three assessments determine the stockpile layers to prepare and whether to stay safely at home or relocate. It is designed for London flats and houses; adapt it to the people, health needs, building and space available in your household.</p>
+
+                <nav class="incontents" aria-label="Jump to a section">
+                    <h3>Contents <small>Tap a section to jump to it</small></h3>
+                    <ol class="navlist" id="intro-list"></ol>
+                </nav>
 
                 <h3>The plan in one view</h3>
                 <div class="tiles">
@@ -372,7 +491,7 @@
                 <h2>What can happen — and what can fail</h2>
                 <p class="lead">Severity describes how disruptive an incident becomes. Systems tell you which necessities are affected. A single incident can move up the scale if it spreads or safe alternatives disappear.</p>
 
-                <h3>Six severity levels <small>| Worst → best</small></h3>
+                <h3>Six severity levels <small>Worst → best</small></h3>
                 <div class="ladder">
                     <div class="ladder__row"><div class="ladder__level" style="background:#9b1d3a">L6</div><div class="ladder__name">Systemic breakdown</div><div class="ladder__desc">Multiple essential systems disrupted for weeks or months; staying may no longer be viable.</div></div>
                     <div class="ladder__row"><div class="ladder__level" style="background:#c9304f">L5</div><div class="ladder__name">Regional disaster</div><div class="ladder__desc">Widespread power, water, food or transport failure; outside help may be delayed.</div></div>
@@ -382,7 +501,7 @@
                     <div class="ladder__row"><div class="ladder__level" style="background:#2a9d8f">L1</div><div class="ladder__name">Minor incident</div><div class="ladder__desc">Short interruption with working alternatives and normal public services.</div></div>
                 </div>
 
-                <h3 id="systems">Nine critical systems <small>| What could stop working?</small></h3>
+                <h3 id="systems">Nine critical systems <small>What could stop working?</small></h3>
                 <div class="tiles">
                     <div class="tile"><div class="tile__num">01</div><div class="tile__title">💧 Water + sanitation</div><div class="tile__body">Tap water, toilets, hygiene</div></div>
                     <div class="tile"><div class="tile__num">02</div><div class="tile__title">⚡ Electricity + heat</div><div class="tile__body">Lighting, heating, cooking</div></div>
@@ -408,7 +527,7 @@
                 <h2>How long — and what to keep ready</h2>
                 <p class="lead">Choose a realistic independence period. The longer a disruption lasts, the more you need replenishment arrangements, safe sanitation and possible alternative accommodation — not just extra food.</p>
 
-                <h3>Four time periods <small>| Planning targets</small></h3>
+                <h3>Four time periods <small>Planning targets</small></h3>
                 <div class="tiles">
                     <div class="tile"><div class="tile__num">START HERE</div><div class="tile__title">72 hours</div><div class="tile__body">Food and water, lighting, first aid, phone charging and basic hygiene.</div></div>
                     <div class="tile"><div class="tile__num">NEXT STEP</div><div class="tile__title">7 days</div><div class="tile__body">Add familiar food, household consumables and ways to refill supplies.</div></div>
@@ -416,7 +535,7 @@
                     <div class="tile"><div class="tile__num">CONTINGENCY</div><div class="tile__title">30 days</div><div class="tile__body">Use a sustainable resupply / relocation plan; only store what is safe.</div></div>
                 </div>
 
-                <h3 id="layers">Four stockpile layers <small>| Build in order</small></h3>
+                <h3 id="layers">Four stockpile layers <small>Build in order</small></h3>
                 <div class="layers">
                     <div class="layer"><div class="layer__letter">A</div><div><div class="layer__name">GO BAG</div><div class="layer__desc">Portable items for leaving safely: documents, medicines, torch, water, keys and phone charging.</div></div><span class="pill">Ready now</span></div>
                     <div class="layer"><div class="layer__letter">B</div><div><div class="layer__name">72-HOUR KIT</div><div class="layer__desc">Drinking water, no-cook food, lighting, radio, first aid, hygiene and warm clothing.</div></div><span class="pill">Buy first</span></div>
@@ -460,9 +579,9 @@
                     </div>
                 </div>
 
-                <h3 id="risk">Risk priority <small>| Rank preparations for your own home</small></h3>
+                <h3 id="risk">Risk priority <small>Rank preparations for your own home</small></h3>
                 <p>For each scenario, score <strong>Likelihood (L)</strong>, <strong>Consequence (C)</strong> and <strong>Household vulnerability (V)</strong> from 1 (low) to 5 (high). Multiply the three scores. A higher score usually means more urgent preparation; always address cheap measures against life-threatening risks.</p>
-                <div class="tiles">
+                <div class="tiles tiles--list">
                     <div class="tile"><div class="tile__title">L · Likelihood</div><div class="tile__body">How plausible is this locally?</div></div>
                     <div class="tile"><div class="tile__title">C · Consequence</div><div class="tile__body">How much harm or disruption?</div></div>
                     <div class="tile"><div class="tile__title">V · Vulnerability</div><div class="tile__body">How exposed is this household?</div></div>
@@ -481,7 +600,7 @@
                     </div>
                 </div>
 
-                <h3>Property check <small>| Why the scores differ</small></h3>
+                <h3>Property check <small>Why the scores differ</small></h3>
                 <div class="rows">
                     <div class="row"><div class="row__label">🏢 High-rise flat</div><div>Check fire strategy, stairs and lift dependence, water pumps, overheating and safe low-level storage.</div></div>
                     <div class="row"><div class="row__label">🏡 House</div><div>Check flood exposure, exits, heating type, water shut-off and suitable indoor storage.</div></div>
@@ -503,7 +622,7 @@
                 <p class="tagline">For common disruptions (short water/power cuts, severe weather, shop closures). Quantities are for <strong>two adults</strong> for <strong>three days</strong>; scale for children, pets and medical needs.</p>
                 <div class="progress"><div class="progress__bar"><div class="progress__fill"></div></div><span class="progress__text"></span><button type="button" class="progress__reset">Reset</button></div>
 
-                <h3>💧 Water <small>| Layer B · essential</small></h3>
+                <h3>💧 Water <small>Layer B · essential</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>18 litres sealed drinking water minimum (9 L per adult for 72 h).</span></label></li>
                     <li><label><input type="checkbox"><span>5 gallon water jug for storage. Add more where space allows.</span></label></li>
@@ -516,7 +635,7 @@
                     <a href="https://www.amazon.co.uk/25-litre-water-container/s?k=25+litre+water+container" target="_blank" rel="noopener noreferrer">Amazon — water containers and storage</a>
                 </div>
 
-                <h3>🥫 Food <small>| Layer B · no cooking required</small></h3>
+                <h3>🥫 Food <small>Layer B · no cooking required</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>Aim for 6 person-days of food with adequate calories (roughly 12,000 kcal total at 2,000 kcal/adult/day; adjust to individual needs).</span></label></li>
                     <li><label><input type="checkbox"><span>6 tins/pouches ready-to-eat beans or lentils + 6 tins/pouches fish, meat or other protein.</span></label></li>
@@ -529,7 +648,7 @@
                     <a href="https://readywise.co.uk/?srsltid=AYCX9vLtFvLxRYPnVvEKx4Vn_9HGTqjwQGqrp6v9lfBu5w6nUmSqcYdB" target="_blank" rel="noopener noreferrer">ReadyWise — emergency ready to eat food</a>
                 </div>
 
-                <h3>🔦 Power + information <small>| Layer B · no mains electricity</small></h3>
+                <h3>🔦 Power + information <small>Layer B · no mains electricity</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>2 × reputable 10,000–20,000 mAh USB power banks, charged and with compatible cables.</span></label></li>
                     <li><label><input type="checkbox"><span>2 × battery-powered torches/headlamps + 1 × LED lantern.</span></label></li>
@@ -554,7 +673,7 @@
                 <h2>Buy now | Finish the 72-hour kit</h2>
                 <div class="progress"><div class="progress__bar"><div class="progress__fill"></div></div><span class="progress__text"></span><button type="button" class="progress__reset">Reset</button></div>
 
-                <h3>🩹 Medical + first aid <small>| Layers A + B</small></h3>
+                <h3>🩹 Medical + first aid <small>Layers A + B</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>1 × household first-aid kit (sterile dressings, plasters, bandages, antiseptic, tape, gloves and scissors).</span></label></li>
                     <li><label><input type="checkbox"><span>Personal prescription medicines for several days; agree any extra buffer with the prescriber/pharmacist.</span></label></li>
@@ -566,7 +685,7 @@
                     <a href="https://www.nhs.uk/nhs-services/prescriptions/emergency-prescriptions/" target="_blank" rel="noopener noreferrer">NHS — emergency prescriptions</a>
                 </div>
 
-                <h3>🧻 Hygiene + toilet <small>| Layer B</small></h3>
+                <h3>🧻 Hygiene + toilet <small>Layer B</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>1 × hand sanitiser bottle + 1–2 packs wet wipes + soap and hygiene essentials.</span></label></li>
                     <li><label><input type="checkbox"><span>4 toilet rolls and 1 pack robust rubbish bags; disposable gloves.</span></label></li>
@@ -578,7 +697,7 @@
                     <a href="https://www.boots.com/" target="_blank" rel="noopener noreferrer">Boots — hygiene supplies</a>
                 </div>
 
-                <h3>🚪 Shelter + safe exit <small>| Layers A + B</small></h3>
+                <h3>🚪 Shelter + safe exit <small>Layers A + B</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>Working smoke alarms; an appropriate carbon-monoxide alarm where fuel-burning appliances are present.</span></label></li>
                     <li><label><input type="checkbox"><span>1 warm blanket or sleeping bag per adult; sturdy shoes and weatherproof outer layer.</span></label></li>
@@ -605,7 +724,7 @@
                 <p class="tagline">After the 72-hour kit, prioritise extended water access and extra familiar food. These are capability targets — not instructions to remain in an unsafe building.</p>
                 <div class="progress"><div class="progress__bar"><div class="progress__fill"></div></div><span class="progress__text"></span><button type="button" class="progress__reset">Reset</button></div>
 
-                <h3>💧 Water <small>| Layer C · expand carefully</small></h3>
+                <h3>💧 Water <small>Layer C · expand carefully</small></h3>
                 <p><strong>Target for 2 adults</strong> (drinking water):</p>
                 <div class="targets">
                     <div class="target"><div class="target__time">72 hours</div><div class="target__qty">18 L</div></div>
@@ -623,7 +742,7 @@
                     <a href="https://www.gooutdoors.co.uk/collections/jerry-cans-containers" target="_blank" rel="noopener noreferrer">GO Outdoors — containers</a>
                 </div>
 
-                <h3>🥫 Food + everyday consumables <small>| Layer C</small></h3>
+                <h3>🥫 Food + everyday consumables <small>Layer C</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span><strong>7 days:</strong> add 4 days of meals per person beyond the 72-hour kit; use a normal rotating pantry.</span></label></li>
                     <li><label><input type="checkbox"><span><strong>14 days:</strong> add another 7 days per person; mix ready-to-eat proteins, carbohydrates, fruit/vegetables and energy-dense foods.</span></label></li>
@@ -634,7 +753,7 @@
                     <a href="https://www.tesco.com/" target="_blank" rel="noopener noreferrer">Tesco — grocery essentials</a>
                 </div>
 
-                <h3>🔋 Additional capability <small>| Layers C + D</small></h3>
+                <h3>🔋 Additional capability <small>Layers C + D</small></h3>
                 <ul class="checklist">
                     <li><label><input type="checkbox"><span>Extra charged power bank or properly sized power station only if there is a real device need; consider a small fan for heat.</span></label></li>
                     <li><label><input type="checkbox"><span>Appropriate medicine continuity plan, extra dressings and first-aid / bleeding-control training.</span></label></li>
@@ -658,13 +777,13 @@
                 <p class="micro">08 / Decision and reference card</p>
                 <h2>Know when to relocate</h2>
 
-                <h3>🚨 Leave now <small>| No waiting for a time threshold</small></h3>
+                <h3>🚨 Leave now <small>No waiting for a time threshold</small></h3>
                 <ul class="plainlist">
                     <li>An evacuation order, an unsafe fire/smoke situation, dangerous flooding, a suspected gas/CO hazard or structural danger.</li>
                     <li>An urgent medical need that cannot be supported at home. Note and map out the nearest medical facilities. If services are available, call <strong>999</strong>.</li>
                 </ul>
 
-                <h3>⏱ Plan to leave early <small>| Review at least morning + evening</small></h3>
+                <h3>⏱ Plan to leave early <small>Review at least morning + evening</small></h3>
                 <ul class="plainlist">
                     <li>Less than 24 hours of safe drinking water remains and no credible replacement supply is available.</li>
                     <li>Toilet/sanitation is unusable; indoor temperatures (e.g. cold) threaten health; power-dependent medical needs cannot be met.</li>
@@ -675,7 +794,7 @@
                     Do not wait until day 3, 7 or 14 just because supplies remain. If essential safety cannot be maintained for the next 24 hours, arrange a safe move while routes are usable. These are household planning triggers, not official cut-offs.
                 </div>
 
-                <h3>Your five-step relocation plan <small>| Fill in before an incident</small></h3>
+                <h3>Your five-step relocation plan <small>Fill in before an incident</small></h3>
                 <ol class="plan">
                     <li><div><strong>Destination A:</strong> trusted local contact / safe accommodation. <strong>Destination B:</strong> outside affected area.</div></li>
                     <li><div><strong>Transport:</strong> primary route and walking/public-transport alternative; check official warnings first.</div></li>
@@ -684,7 +803,7 @@
                     <li><div><strong>Exit safely:</strong> follow evacuation directions. Only turn off utilities when safe and appropriate.</div></li>
                 </ol>
 
-                <h3 id="official">Official guidance <small>| Save these links now</small></h3>
+                <h3 id="official">Official guidance <small>Save these links now</small></h3>
                 <div class="links">
                     <a href="https://prepare.campaign.gov.uk/get-prepared-for-emergencies/" target="_blank" rel="noopener noreferrer">UK Prepare<small>Get prepared for emergencies</small></a>
                     <a href="https://prepare.campaign.gov.uk/be-informed-about-hazards/power-cuts/" target="_blank" rel="noopener noreferrer">Power cuts / 105<small>What to do in a power cut</small></a>
@@ -772,19 +891,68 @@
         }
         updateScore();
 
-        // Highlight the current section in the contents
-        const tocLinks = document.querySelectorAll('.toc a');
+        // Mobile contents: build the large-row lists from the sidebar contents
+        const tocSource = [...document.querySelectorAll('.toc a')];
+        ['sheet-list', 'intro-list'].forEach(id => {
+            const list = document.getElementById(id);
+            tocSource.forEach(src => {
+                const num = src.querySelector('span').textContent;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = src.getAttribute('href');
+                a.innerHTML = '<span class="navlist__num">' + num + '</span><span class="navlist__text"></span>';
+                const text = a.querySelector('.navlist__text');
+                text.textContent = src.textContent.replace(num, '');
+                const sub = document.createElement('small');
+                sub.textContent = src.dataset.sub;
+                text.appendChild(sub);
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+        });
+
+        // Contents sheet
+        const sheet = document.getElementById('sheet');
+        const sheetBtn = document.getElementById('secbar-btn');
+        function setSheet(open) {
+            sheet.classList.toggle('open', open);
+            sheetBtn.setAttribute('aria-expanded', open);
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (open) sheet.querySelector('.navlist a.active, .navlist a').focus({ preventScroll: true });
+        }
+        sheetBtn.addEventListener('click', () => setSheet(true));
+        sheet.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => setSheet(false)));
+        // Close first, then scroll: the jump must happen after the body scroll lock is released
+        sheet.querySelectorAll('.navlist a').forEach(a => a.addEventListener('click', e => {
+            e.preventDefault();
+            setSheet(false);
+            const hash = a.getAttribute('href');
+            requestAnimationFrame(() => {
+                document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+                history.replaceState(null, '', hash);
+            });
+        }));
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && sheet.classList.contains('open')) setSheet(false);
+        });
+
+        // Back-to-top button appears once past the top of the guide
+        const totop = document.getElementById('totop');
+        window.addEventListener('scroll', () => {
+            totop.classList.toggle('show', window.scrollY > 600);
+        }, { passive: true });
+
+        // Highlight the current section in every contents list and the mobile bar
+        const allNavLinks = document.querySelectorAll('.toc a, .navlist a');
+        const current = document.getElementById('secbar-current');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (!entry.isIntersecting) return;
-                tocLinks.forEach(link => {
-                    const active = link.getAttribute('href') === '#' + entry.target.id;
-                    link.classList.toggle('active', active);
-                    if (active && window.innerWidth <= 900) {
-                        const list = link.closest('ol');
-                        list.scrollLeft = link.offsetLeft - (list.clientWidth - link.offsetWidth) / 2;
-                    }
-                });
+                const hash = '#' + entry.target.id;
+                allNavLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === hash));
+                const src = tocSource.find(a => a.getAttribute('href') === hash);
+                const num = src.querySelector('span').textContent;
+                current.textContent = num + ' · ' + src.textContent.replace(num, '');
             });
         }, { rootMargin: '-30% 0px -60% 0px' });
         document.querySelectorAll('main .section').forEach(s => observer.observe(s));
